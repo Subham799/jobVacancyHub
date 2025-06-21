@@ -1,11 +1,12 @@
 // src/app/jobs/[jobId]/page.js
-// This file runs on the server for generateMetadata, and on the client for the component
-import { notFound } from 'next/navigation'; // For handling job not found
-import JobDetailsView from '../../../components/JobDetailsView.js'; // Adjust path
+"use client"; // This directive marks the component as a Client Component.
+
+import { notFound } from 'next/navigation';
+import JobDetailsView from '@/components/JobDetailsView.js'; // Using alias
 import { useRouter } from 'next/navigation'; // For client-side navigation
 import React, { useState, useEffect } from 'react';
 
-import { db, auth } from '../../../firebaseConfig.js'; // Import Firebase config
+import { db, auth } from '@/firebaseConfig.js'; // Using alias
 import { doc, getDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -21,7 +22,7 @@ async function getJobByIdFromFirestore(jobId) {
       return { id: jobSnap.id, ...jobSnap.data() };
     }
   } catch (e) {
-    console.error("Error fetching job from Firestore:", e);
+    console.error("Error fetching job from Firestore (client-side context):", e);
   }
 
   // Fallback for dynamically generated jobs stored in localStorage (from LLM demo)
@@ -40,7 +41,9 @@ async function getJobByIdFromFirestore(jobId) {
 }
 
 // Function to generate dynamic metadata for each job page
-// This runs on the server, so direct Firestore access is preferred for initial load
+// This runs on the server. The getJobByIdFromFirestore called here
+// needs to be able to fetch data in a server context.
+// As discussed, this might require Firebase Admin SDK setup for real deployments.
 export async function generateMetadata({ params }) {
   const job = await getJobByIdFromFirestore(params.jobId); // Await the async fetch
 

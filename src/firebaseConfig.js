@@ -1,12 +1,11 @@
-// src/firebaseConfig.js
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithCustomToken, signInAnonymously } from "firebase/auth";
+import { getAuth, signInAnonymously, signInWithCustomToken } from "firebase/auth";
+
+import { initializeApp, getApps } from "firebase/app";
+// import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-// IMPORTANT: Replace the values below with YOUR ACTUAL Firebase project configuration
-// You can find this in your Firebase Console -> Project settings -> Your apps -> Web app setup
+
 const firebaseConfig = {
   apiKey: "AIzaSyBvgRUF3hXwrIeiTAgmpq7yEi5V53jajSQ",
   authDomain: "jobvacancy-60d3a.firebaseapp.com",
@@ -18,12 +17,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
-// Authenticate user for Firestore access within Canvas environment
-// This block ensures it works both in Canvas and when deployed
+let analytics = null;
+if (typeof window !== "undefined") {
+  analytics = getAnalytics(app);
+}
+// const analytics = getAnalytics(app);
+
 const initializeAuth = async () => {
   if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
     // Canvas environment: Use provided custom token

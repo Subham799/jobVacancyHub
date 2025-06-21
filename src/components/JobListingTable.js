@@ -1,4 +1,6 @@
 // src/components/JobListingTable.js
+"use client"; // Added directive
+
 import React from 'react';
 import { List } from 'lucide-react';
 import { useRouter } from 'next/navigation'; // Import useRouter
