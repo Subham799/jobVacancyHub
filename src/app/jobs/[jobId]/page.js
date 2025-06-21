@@ -1,5 +1,5 @@
 // src/app/jobs/[jobId]/page.js
-"use client"; // This directive marks the component as a Client Component.
+// "use client"; // This directive marks the component as a Client Component.
 
 import { notFound } from 'next/navigation';
 import JobDetailsView from '@/components/JobDetailsView.js'; // Using alias
