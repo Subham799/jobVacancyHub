@@ -118,10 +118,10 @@ const JobDetailsView = ({ job, onClose }) => {
       
       {job.applyLink && (
         <div className="text-center mt-8">
-            <link href={job.applyLink} target="_blank" rel="noopener noreferrer"
+            <Link href={job.applyLink} target="_blank" rel="noopener noreferrer"
                className="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-colors duration-200 text-lg">
                 Apply Now
-            </a>
+            </Link>
         </div>
       )}
 

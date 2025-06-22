@@ -72,9 +72,9 @@ const JobListingTable = ({ title, jobs }) => { // Removed onJobClick prop, will 
                   <td className="py-3 px-6 text-left">{job.tableAgeLimitSummary || job.ageLimit || 'N/A'}</td>
                   <td className="py-3 px-6 text-left">{formatDate(job.deadline)}</td>
                   <td className="py-3 px-6 text-center">
-                    <link href={job.applyLink} target="_blank" rel="noopener noreferrer" className={`text-blue-500 hover:text-blue-700 hover:underline ${isJobExpired(job.deadline) ? 'pointer-events-none text-gray-500' : ''}`}>
+                    <Link href={job.applyLink} target="_blank" rel="noopener noreferrer" className={`text-blue-500 hover:text-blue-700 hover:underline ${isJobExpired(job.deadline) ? 'pointer-events-none text-gray-500' : ''}`}>
                       Apply Here
-                    </link>
+                    </Link>
                   </td>
                 </tr>
               ))
