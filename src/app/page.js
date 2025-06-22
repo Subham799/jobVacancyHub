@@ -1,6 +1,8 @@
 "use client"; // This directive marks the component as a Client Component.
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Search, Bell, Menu, X, ChevronDown, Rocket, TrendingUp, Briefcase, CalendarClock, Globe, Building, Code, Banknote, Syringe, Wrench, BookOpen, MessageCircle, Mail, MapPin, Handshake, Info, Phone, FileText, Newspaper, User, LogIn, Plus, ClipboardCopy } from 'lucide-react';
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation (external package)
 
@@ -414,16 +416,20 @@ const App = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo and Tagline */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2"> {/* Link to homepage */}
-              <img src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP" alt="Job Portal Logo" className="rounded-full" />
-              <span className="text-xl font-bold text-indigo-600">JobConnect</span>
-            </a>
+            <Link href="/">
+              <a className="flex items-center space-x-2">
+                <Image src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP" alt="Job Portal Logo" width={40} height={40} className="rounded-full" />
+                <span className="text-xl font-bold text-indigo-600">JobConnect</span>
+              </a>
+            </Link>
             <span className="hidden md:block ml-4 text-sm text-gray-500">Find Your Dream Job, Effortlessly.</span>
           </div>
 
-          {/* Desktop Navigation */}
+         {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="/" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Home</a>
+            <Link href="/">
+              <a className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Home</a>
+            </Link>
             <div className="relative">
               <button
                 className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors duration-200"
@@ -433,7 +439,9 @@ const App = () => {
               </button>
               {isJobCategoriesMenuOpen && (
                 <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-10">
-                  <a href="/jobs/government" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                  <Link href="/jobs/government">
+                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                  </Link>
                   {/* Other category links can be added here, pointing to relevant views */}
                   <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
                   <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">IT Jobs</a>
@@ -464,10 +472,12 @@ const App = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+          {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="md:hidden bg-white py-4 px-4 border-t border-gray-200">
-            <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
+            <Link href="/">
+              <a onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
+            </Link>
             <button
               className="w-full flex items-center justify-between px-4 py-2 text-gray-800 hover:bg-gray-100"
               onClick={() => setIsJobCategoriesMenuOpen(!isJobCategoriesMenuOpen)}
@@ -476,7 +486,9 @@ const App = () => {
             </button>
             {isJobCategoriesMenuOpen && (
               <div className="ml-4 border-l border-gray-200 pl-4">
-                <a href="/jobs/government" onClick={() => { setIsJobCategoriesMenuOpen(false); setIsMobileMenuOpen(false); }} className="block py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                <Link href="/jobs/government">
+                  <a onClick={() => { setIsJobCategoriesMenuOpen(false); setIsMobileMenuOpen(false); }} className="block py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                </Link>
                 {/* Other category links can be added here */}
                 <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
                 <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">IT Jobs</a>
