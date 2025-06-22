@@ -916,10 +916,10 @@ const App = () => {
               <MessageCircle className="h-7 w-7" />
             </a>
             <a href="#" className="p-3 bg-white text-green-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join WhatsApp">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="h-7 w-7" />
+              <Image src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="h-7 w-7" />
             </a>
             <a href="#" className="p-3 bg-white text-blue-700 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Facebook Group">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="h-7 w-7" />
+              <Image src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="h-7 w-7" />
             </a>
             <a href="#" className="p-3 bg-white text-red-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Get Email Alerts">
               <Mail className="h-7 w-7" />
@@ -951,8 +951,13 @@ const App = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/" className="hover:text-indigo-400 transition-colors duration-200">Home</a></li>
-              <li><a href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories</a></li>
+              
+          <li>
+  <Link href="/" className="hover:text-indigo-400 transition-colors duration-200">Home</Link>
+</li>
+<li>
+  <Link href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories</Link>
+</li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Blog & Guides</a></li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Success Stories</a></li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Sitemap</a></li>
