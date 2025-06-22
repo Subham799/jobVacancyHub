@@ -417,10 +417,28 @@ const App = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo and Tagline */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2"> {/* Link to homepage */}
-              <img src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP" alt="Job Portal Logo" className="rounded-full" />
+            <Link href="/" className="flex items-center space-x-2"> {/* Link to homepage */}
+            <Image
+  src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP"
+  alt="Job Portal Logo"
+  width={40}
+  height={40}
+  className="rounded-full"
+/>
+
+
+
+
+
+
+
+
+
+
+
+
               <span className="text-xl font-bold text-indigo-600">JobConnect</span>
-            </a>
+            </Link>
             <span className="hidden md:block ml-4 text-sm text-gray-500">Find Your Dream Job, Effortlessly.</span>
           </div>
 
