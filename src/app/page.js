@@ -1,4 +1,4 @@
-// "use client"; // This directive marks the component as a Client Component.
+"use client"; // This directive marks the component as a Client Component.
 
 import React, { useState, useEffect } from 'react';
 import { Search, Bell, Menu, X, ChevronDown, Rocket, TrendingUp, Briefcase, CalendarClock, Globe, Building, Code, Banknote, Syringe, Wrench, BookOpen, MessageCircle, Mail, MapPin, Handshake, Info, Phone, FileText, Newspaper, User, LogIn, Plus, ClipboardCopy } from 'lucide-react';
