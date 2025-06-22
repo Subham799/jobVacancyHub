@@ -411,33 +411,15 @@ const App = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
+ <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
       {/* Header Section */}
       <header className="sticky top-0 z-50 bg-white shadow-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo and Tagline */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2"> {/* Link to homepage */}
-            <Image
-  src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP"
-  alt="Job Portal Logo"
-  width={40}
-  height={40}
-  className="rounded-full"
-/>
-
-
-
-
-
-
-
-
-
-
-
-
-              <span className="text-xl font-bold text-indigo-600">JobConnect</span>
+           <Link href="/" className="flex items-center space-x-2">
+              {/* Removed Image tag as requested */}
+              <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Job Vacancy</span>
             </Link>
             <span className="hidden md:block ml-4 text-sm text-gray-500">Find Your Dream Job, Effortlessly.</span>
           </div>
