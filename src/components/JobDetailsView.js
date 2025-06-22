@@ -1,5 +1,6 @@
 // src/components/JobDetailsView.js
 import React from 'react';
+import Link from 'next/link';
 import { X } from 'lucide-react';
 
 const JobDetailsView = ({ job, onClose }) => {
