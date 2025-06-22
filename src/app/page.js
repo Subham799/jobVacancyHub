@@ -420,7 +420,7 @@ const App = () => {
            <Link href="/" className="flex items-center space-x-2">
               {/* Removed Image tag as requested */}
               <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Job Vacancy</span>
-            </Link>
+                </Link>
             <span className="hidden md:block ml-4 text-sm text-gray-500">Find Your Dream Job, Effortlessly.</span>
           </div>
 
@@ -428,7 +428,7 @@ const App = () => {
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
               Home
-            </Link>
+                </Link>
             <div className="relative">
               <button
                 className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors duration-200"
@@ -440,27 +440,27 @@ const App = () => {
                 <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-10">
                   <Link href="/jobs/government" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                     Government Jobs
-                  </Link>
+                        </Link>
                   {/* Other category links can be added here, pointing to relevant views */}
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">IT Jobs</a>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Banking Jobs</a>
-                  <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Engineering Jobs</a>
+                  <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Private Jobs        </Link>
+                  <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">IT Jobs        </Link>
+                  <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Banking Jobs          </Link>
+                  <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Engineering Jobs          </Link>
                   <div className="border-t border-gray-200 my-1"></div>
-                  <a href="#" className="block px-4 py-2 text-indigo-600 hover:bg-gray-100 font-medium">Explore All Categories</a>
+                  <Link href="#" className="block px-4 py-2 text-indigo-600 hover:bg-gray-100 font-medium">Explore All Categories        </Link>
                 </div>
               )}
             </div>
-            <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Blog/Guides</a>
-            <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
+            <Link href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Blog/Guides        </Link>
+            <Link href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200 relative">
               <Bell className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">4</span> {/* Notification badge */}
-            </a>
-            <a href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Contact</a>
-            <a href="#" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200 flex items-center space-x-2">
+                    </Link>
+            <Link href="#" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Contact        </Link>
+            <Link href="#" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200 flex items-center space-x-2">
               <User className="h-4 w-4" />
               <span>Login/Register</span>
-            </a>
+                    </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -476,7 +476,7 @@ const App = () => {
           <nav className="md:hidden bg-white py-4 px-4 border-t border-gray-200">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
               Home
-            </Link>
+                  </Link>
             <button
               className="w-full flex items-center justify-between px-4 py-2 text-gray-800 hover:bg-gray-100"
               onClick={() => setIsJobCategoriesMenuOpen(!isJobCategoriesMenuOpen)}
@@ -491,19 +491,19 @@ const App = () => {
                   className="block py-2 text-gray-800 hover:bg-gray-100"
                 >
                   Government Jobs
-                </Link>
+                      </Link>
                 {/* Other category links can be added here */}
-                <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
-                <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">IT Jobs</a>
-                <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Banking Jobs</a>
-                <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Engineering Jobs</a>
-                <a href="#" className="block py-2 text-indigo-600 hover:bg-gray-100 font-medium">Explore All Categories</a>
+                <Link href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Private Jobs        </Link>
+                <Link href="#" className="block py-2 text-gray-800 hover:bg-gray-100">IT Jobs        </Link>
+                <Link href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Banking Jobs      </Link>
+                <Link href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Engineering Jobs      </Link>
+                <Link href="#" className="block py-2 text-indigo-600 hover:bg-gray-100 font-medium">Explore All Categories      </Link>
               </div>
             )}
-            <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Blog/Guides</a>
-            <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Notifications</a>
-            <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Contact</a>
-            <a href="#" className="block px-4 py-2 text-indigo-600 font-medium hover:bg-gray-100">Login/Register</a>
+            <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Blog/Guides      </Link>
+            <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Notifications      </Link>
+            <Link href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Contact      </Link>
+            <Link href="#" className="block px-4 py-2 text-indigo-600 font-medium hover:bg-gray-100">Login/Register      </Link>
           </nav>
         )}
       </header>
@@ -591,8 +591,8 @@ const App = () => {
                   <h4 className="font-semibold text-gray-900">{job.title}</h4>
                   <p className="text-sm text-gray-600">{(job.organization?.conductedBy || job.company)} - {(job.jobLocation?.address?.addressLocality || job.location)}</p>
                   <p className="text-xs text-red-700 mt-1">Deadline: {formatDate(job.deadline)}</p>
-                  {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
-                  <a href={`/jobs/${job.id}`} className="text-indigo-600 text-sm mt-2 block hover:underline">View Details</a>
+                  {/* Keep plain <Link> tag for external links or if Next.js Link is not controlling routing */}
+                  <Link href={`/jobs/${job.id}`} className="text-indigo-600 text-sm mt-2 block hover:underline">View Details      </Link>
                 </div>
               ))}
             </div>
@@ -612,7 +612,7 @@ const App = () => {
                   {notif.type === 'result' && <Newspaper className="h-5 w-5 text-green-500 flex-shrink-0 mr-2" />}
                   {notif.type === 'deadline' && <CalendarClock className="h-5 w-5 text-red-500 flex-shrink-0 mr-2" />}
                   <div>
-                    <a href={notif.link} className="text-gray-700 hover:text-indigo-600 hover:underline text-sm font-medium">{notif.title}</a>
+                    <Link href={notif.link} className="text-gray-700 hover:text-indigo-600 hover:underline text-sm font-medium">{notif.title}      </Link>
                   </div>
                 </li>
               ))}
@@ -631,11 +631,11 @@ const App = () => {
             <ul className="space-y-3">
               {trendingJobs.map(job => (
                 <li key={job.id}>
-                  {/* These links don't lead anywhere specific in this demo, so plain <a> is fine */}
-                  <a href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  {/* These links don't lead anywhere specific in this demo, so plain <Link> is fine */}
+                  <Link href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.company} - {job.location}</p>
-                  </a>
+                        </Link>
                 </li>
               ))}
             </ul>
@@ -650,11 +650,11 @@ const App = () => {
             <ul className="space-y-3">
               {latestGovtJobs.slice(0, 3).map(job => ( // Show only top 3 active jobs
                 <li key={job.id}>
-                  {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
-                  <a href={`/jobs/${job.id}`} className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  {/* Keep plain <Link> tag for external links or if Next.js Link is not controlling routing */}
+                  <Link href={`/jobs/${job.id}`} className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.department || job.organization?.conductedBy} - {formatDate(job.postedDate?.toDate ? job.postedDate.toDate() : job.postedDate)}</p>
-                  </a>
+                        </Link>
                 </li>
               ))}
             </ul>
@@ -669,11 +669,11 @@ const App = () => {
             <ul className="space-y-3">
               {latestPrivateJobs.map(job => (
                 <li key={job.id}>
-                  {/* These links don't lead anywhere specific in this demo, so plain <a> is fine */}
-                  <a href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  {/* These links don't lead anywhere specific in this demo, so plain <Link> is fine */}
+                  <Link href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.company} - {job.location}</p>
-                  </a>
+                        </Link>
                 </li>
               ))}
             </ul>
@@ -688,10 +688,10 @@ const App = () => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Explore Jobs by Category</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {jobCategories.map(category => (
-              <a key={category.name} href={`/jobs/${category.name.toLowerCase().replace(/\s/g, '-')}`} className="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md hover:bg-indigo-50 transition-all duration-200 transform hover:-translate-y-1">
+              <Link key={category.name} href={`/jobs/${category.name.toLowerCase().replace(/\s/g, '-')}`} className="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md hover:bg-indigo-50 transition-all duration-200 transform hover:-translate-y-1">
                 {category.icon}
                 <span className="mt-3 text-center text-sm font-medium text-gray-800">{category.name}</span>
-              </a>
+                    </Link>
             ))}
           </div>
           <div className="text-center mt-8">
@@ -905,8 +905,8 @@ const App = () => {
               <div key={post.id} className="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{post.title}</h3>
                 <p className="text-sm text-gray-600 line-clamp-3">{post.snippet}</p>
-                {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
-                <a href={post.link} className="text-indigo-600 text-sm mt-3 block hover:underline">Read More &rarr;</a>
+                {/* Keep plain <Link> tag for external links or if Next.js Link is not controlling routing */}
+                <Link href={post.link} className="text-indigo-600 text-sm mt-3 block hover:underline">Read More &rarr;      </Link>
               </div>
             ))}
           </div>
@@ -920,11 +920,11 @@ const App = () => {
           <h2 className="text-2xl font-bold mb-4">Join Our Job Alert Group!</h2>
           <p className="text-lg mb-6">Never miss a job update. Connect with us on social media for instant notifications.</p>
           <div className="flex justify-center space-x-6 mb-6">
-            {/* Using plain <a> tags or Image components for social links */}
-            <a href="#" className="p-3 bg-white text-indigo-600 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Telegram">
+            {/* Using plain <Link> tags or Image components for social links */}
+            <Link href="#" className="p-3 bg-white text-indigo-600 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Telegram">
               <MessageCircle className="h-7 w-7" />
-            </a>
-            <a href="#" className="p-3 bg-white text-green-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join WhatsApp">
+                  </Link>
+            <Link href="#" className="p-3 bg-white text-green-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join WhatsApp">
               <Image
   src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
   alt="WhatsApp"
@@ -932,8 +932,8 @@ const App = () => {
   height={28}
   className="h-7 w-7"
 />
-            </a>
-            <a href="#" className="p-3 bg-white text-blue-700 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Facebook Group">
+                  </Link>
+            <Link href="#" className="p-3 bg-white text-blue-700 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Facebook Group">
               <Image
   src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
   alt="Facebook"
@@ -941,10 +941,10 @@ const App = () => {
   height={28}
   className="h-7 w-7"
 />
-            </a>
-            <a href="#" className="p-3 bg-white text-red-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Get Email Alerts">
+                  </Link>
+            <Link href="#" className="p-3 bg-white text-red-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Get Email Alerts">
               <Mail className="h-7 w-7" />
-            </a>
+                  </Link>
           </div>
           <div className="max-w-md mx-auto flex">
             <input
@@ -973,14 +973,14 @@ const App = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-indigo-400 transition-colors duration-200">Home</Link>
+                <Link href="/" className="hover:text-indigo-400 transition-colors duration-200">Home    </Link>
               </li>
               <li>
-                <Link href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories</Link>
+                <Link href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories    </Link>
               </li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Blog & Guides</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Success Stories</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Sitemap</a></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200">Blog & Guides      </Link></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200">Success Stories      </Link></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200">Sitemap      </Link></li>
             </ul>
           </div>
 
@@ -988,9 +988,9 @@ const App = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><Phone className="mr-2 h-4 w-4" /> Contact Us</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><Info className="mr-2 h-4 w-4" /> Help Center / FAQs</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><FileText className="mr-2 h-4 w-4" /> Terms & Privacy Policy</a></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><Phone className="mr-2 h-4 w-4" /> Contact Us      </Link></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><Info className="mr-2 h-4 w-4" /> Help Center / FAQs      </Link></li>
+              <li><Link href="#" className="hover:text-indigo-400 transition-colors duration-200 flex items-center"><FileText className="mr-2 h-4 w-4" /> Terms & Privacy Policy      </Link></li>
             </ul>
           </div>
 
