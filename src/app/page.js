@@ -6,14 +6,15 @@ import Image from 'next/image';
 import { Search, Bell, Menu, X, ChevronDown, Rocket, TrendingUp, Briefcase, CalendarClock, Globe, Building, Code, Banknote, Syringe, Wrench, BookOpen, MessageCircle, Mail, MapPin, Handshake, Info, Phone, FileText, Newspaper, User, LogIn, Plus, ClipboardCopy } from 'lucide-react';
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation (external package)
 
-// Import Firebase config - Using correct relative path from src/app to src/firebaseConfig.js
-import { db, auth } from '@/firebaseConfig.js'; // Corrected path: from src/app, go up one (to src), then to firebaseConfig.js
+// Corrected relative path for firebaseConfig.js:
+// From src/app/page.js, '..' goes up to 'src/', then to firebaseConfig.js
+import { db, auth } from '../firebaseConfig.js';
 import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'; // External package import
 import { onAuthStateChanged } from 'firebase/auth'; // External package import
 
-// Import reusable components - Using correct relative path from src/app to src/components/JobListingTable.js
-import JobListingTable from '@/components/JobListingTable.js';
-// Corrected path: from src/app, go up one (to src), then into components
+// Corrected relative path for JobListingTable.js:
+// From src/app/page.js, '..' goes up to 'src/', then into 'components/'
+import JobListingTable from '../components/JobListingTable.js';
 
 // Static data for LLM feature - defined globally for access by summarizeJobDescription
 const sampleJobDescription = `
@@ -416,19 +417,17 @@ const App = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo and Tagline */}
           <div className="flex items-center">
-            <Link href="/">
-              <a className="flex items-center space-x-2">
-                <Image src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP" alt="Job Portal Logo" width={40} height={40} className="rounded-full" />
-                <span className="text-xl font-bold text-indigo-600">JobConnect</span>
-              </a>
-            </Link>
+            <a href="/" className="flex items-center space-x-2"> {/* Link to homepage */}
+              <img src="https://placehold.co/40x40/6366F1/FFFFFF?text=JP" alt="Job Portal Logo" className="rounded-full" />
+              <span className="text-xl font-bold text-indigo-600">JobConnect</span>
+            </a>
             <span className="hidden md:block ml-4 text-sm text-gray-500">Find Your Dream Job, Effortlessly.</span>
           </div>
 
          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/">
-              <a className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Home</a>
+            <Link href="/" className="text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+              Home
             </Link>
             <div className="relative">
               <button
@@ -439,8 +438,8 @@ const App = () => {
               </button>
               {isJobCategoriesMenuOpen && (
                 <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-10">
-                  <Link href="/jobs/government">
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                  <Link href="/jobs/government" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                    Government Jobs
                   </Link>
                   {/* Other category links can be added here, pointing to relevant views */}
                   <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
@@ -475,8 +474,8 @@ const App = () => {
           {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="md:hidden bg-white py-4 px-4 border-t border-gray-200">
-            <Link href="/">
-              <a onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+              Home
             </Link>
             <button
               className="w-full flex items-center justify-between px-4 py-2 text-gray-800 hover:bg-gray-100"
@@ -486,8 +485,12 @@ const App = () => {
             </button>
             {isJobCategoriesMenuOpen && (
               <div className="ml-4 border-l border-gray-200 pl-4">
-                <Link href="/jobs/government">
-                  <a onClick={() => { setIsJobCategoriesMenuOpen(false); setIsMobileMenuOpen(false); }} className="block py-2 text-gray-800 hover:bg-gray-100">Government Jobs</a>
+                <Link
+                  href="/jobs/government"
+                  onClick={() => { setIsJobCategoriesMenuOpen(false); setIsMobileMenuOpen(false); }}
+                  className="block py-2 text-gray-800 hover:bg-gray-100"
+                >
+                  Government Jobs
                 </Link>
                 {/* Other category links can be added here */}
                 <a href="#" className="block py-2 text-gray-800 hover:bg-gray-100">Private Jobs</a>
@@ -588,6 +591,7 @@ const App = () => {
                   <h4 className="font-semibold text-gray-900">{job.title}</h4>
                   <p className="text-sm text-gray-600">{(job.organization?.conductedBy || job.company)} - {(job.jobLocation?.address?.addressLocality || job.location)}</p>
                   <p className="text-xs text-red-700 mt-1">Deadline: {formatDate(job.deadline)}</p>
+                  {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
                   <a href={`/jobs/${job.id}`} className="text-indigo-600 text-sm mt-2 block hover:underline">View Details</a>
                 </div>
               ))}
@@ -627,6 +631,7 @@ const App = () => {
             <ul className="space-y-3">
               {trendingJobs.map(job => (
                 <li key={job.id}>
+                  {/* These links don't lead anywhere specific in this demo, so plain <a> is fine */}
                   <a href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.company} - {job.location}</p>
@@ -645,6 +650,7 @@ const App = () => {
             <ul className="space-y-3">
               {latestGovtJobs.slice(0, 3).map(job => ( // Show only top 3 active jobs
                 <li key={job.id}>
+                  {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
                   <a href={`/jobs/${job.id}`} className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.department || job.organization?.conductedBy} - {formatDate(job.postedDate?.toDate ? job.postedDate.toDate() : job.postedDate)}</p>
@@ -663,6 +669,7 @@ const App = () => {
             <ul className="space-y-3">
               {latestPrivateJobs.map(job => (
                 <li key={job.id}>
+                  {/* These links don't lead anywhere specific in this demo, so plain <a> is fine */}
                   <a href="#" className="block p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
                     <h4 className="font-semibold text-gray-900">{job.title}</h4>
                     <p className="text-sm text-gray-600">{job.company} - {job.location}</p>
@@ -898,6 +905,7 @@ const App = () => {
               <div key={post.id} className="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{post.title}</h3>
                 <p className="text-sm text-gray-600 line-clamp-3">{post.snippet}</p>
+                {/* Keep plain <a> tag for external links or if Next.js Link is not controlling routing */}
                 <a href={post.link} className="text-indigo-600 text-sm mt-3 block hover:underline">Read More &rarr;</a>
               </div>
             ))}
@@ -912,14 +920,27 @@ const App = () => {
           <h2 className="text-2xl font-bold mb-4">Join Our Job Alert Group!</h2>
           <p className="text-lg mb-6">Never miss a job update. Connect with us on social media for instant notifications.</p>
           <div className="flex justify-center space-x-6 mb-6">
+            {/* Using plain <a> tags or Image components for social links */}
             <a href="#" className="p-3 bg-white text-indigo-600 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Telegram">
               <MessageCircle className="h-7 w-7" />
             </a>
             <a href="#" className="p-3 bg-white text-green-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join WhatsApp">
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="h-7 w-7" />
+              <Image
+  src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+  alt="WhatsApp"
+  width={28}
+  height={28}
+  className="h-7 w-7"
+/>
             </a>
             <a href="#" className="p-3 bg-white text-blue-700 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Facebook Group">
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="h-7 w-7" />
+              <Image
+  src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+  alt="Facebook"
+  width={28}
+  height={28}
+  className="h-7 w-7"
+/>
             </a>
             <a href="#" className="p-3 bg-white text-red-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Get Email Alerts">
               <Mail className="h-7 w-7" />
@@ -951,13 +972,12 @@ const App = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              
-          <li>
-  <Link href="/" className="hover:text-indigo-400 transition-colors duration-200">Home</Link>
-</li>
-<li>
-  <Link href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories</Link>
-</li>
+              <li>
+                <Link href="/" className="hover:text-indigo-400 transition-colors duration-200">Home</Link>
+              </li>
+              <li>
+                <Link href="/jobs/government" className="hover:text-indigo-400 transition-colors duration-200">Job Categories</Link>
+              </li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Blog & Guides</a></li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Success Stories</a></li>
               <li><a href="#" className="hover:text-indigo-400 transition-colors duration-200">Sitemap</a></li>
