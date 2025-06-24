@@ -1,42 +1,18 @@
 // src/app/sitemap.js
 
-import admin from 'firebase-admin';
-import { getFirestore } from 'firebase-admin/firestore';
+// ✅ Import the initialized Firestore instance from our central file
+import { dbAdmin } from '@/lib/firebaseAdmin';
 
-// ✅ Initialize Firebase Admin SDK using the base64 service account JSON
-if (!admin.apps.length) {
-  try {
-    const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT;
-
-    if (!serviceAccountBase64) {
-      throw new Error("Missing FIREBASE_SERVICE_ACCOUNT environment variable");
-    }
-
-    const serviceAccount = JSON.parse(
-      Buffer.from(serviceAccountBase64, 'base64').toString('utf8')
-    );
-
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });
-  } catch (error) {
-    console.error("Firebase Admin initialization error in sitemap.js:", error);
-  }
-}
-
-// ✅ Get Firestore instance
-const db = admin.apps.length ? getFirestore() : null;
-
-// ✅ Sitemap generation
 export default async function sitemap() {
   const baseUrl = 'https://www.jobvacancy.com'; // 🔁 Replace with your actual domain
 
   let jobRoutes = [];
 
-  if (db) {
+  // Check if dbAdmin was initialized correctly
+  if (dbAdmin) {
     try {
-      const appId = process.env.NEXT_PUBLIC_APP_ID || 'default-app-id'; // 🔁 Use proper app ID
-      const jobsCollectionRef = db.collection(`artifacts/${appId}/public/data/jobs`);
+      const appId = process.env.NEXT_PUBLIC_APP_ID || 'default-app-id';
+      const jobsCollectionRef = dbAdmin.collection(`artifacts/${appId}/public/data/jobs`);
       const snapshot = await jobsCollectionRef.get();
 
       jobRoutes = snapshot.docs.map((doc) => ({
@@ -49,12 +25,14 @@ export default async function sitemap() {
       console.log(`Sitemap generated: ${jobRoutes.length} job routes added.`);
     } catch (error) {
       console.error('Error fetching jobs for sitemap:', error);
-      jobRoutes = [];
+      // Don't let a fetch error break the entire build
+      jobRoutes = []; 
     }
   } else {
-    console.warn("Firebase Admin SDK not initialized, cannot fetch jobs for sitemap.");
+    console.warn("Firestore Admin instance (dbAdmin) is not available for sitemap.");
   }
 
+  // Static routes
   return [
     {
       url: baseUrl,

@@ -1,38 +1,27 @@
 // src/app/jobs/[jobId]/page.js
-// This is a Server Component. NO "use client" directive here.
 
 import { notFound } from 'next/navigation';
+import { dbAdmin } from '@/lib/firebaseAdmin'; // ✅ Centralized Admin SDK
 
-// IMPORTANT: This path expects JobDetailClient.js to be in the SAME DIRECTORY
-// (i.e., src/app/jobs/[jobId]/JobDetailClient.js)
-import JobDetailClient from './JobDetailClient';
+import JobDetailClient from './JobDetailClient'; // ✅ Client Component
 
-// IMPORTANT: This path expects firebaseConfig.js to be in your project's 'src' directory.
-// Relative path from src/app/jobs/[jobId]:
-// 1. ../ (from [jobId] to jobs)
-// 2. ../ (from jobs to app)
-// 3. ../ (from app to src)
-import { db } from '../../../firebaseConfig.js';
-import { doc, getDoc } from 'firebase/firestore'; // Firebase Firestore module (external package)
-
-
-// Helper to retrieve job by ID for Server Component context
+// ✅ Server-side Firestore fetch using Admin SDK
 async function getJobByIdFromFirestore(jobId) {
-  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-  const jobDocRef = doc(db, `artifacts/${appId}/public/data/jobs`, jobId);
+  const appId = process.env.NEXT_PUBLIC_APP_ID || 'default-app-id';
+  const jobDocRef = dbAdmin.collection(`artifacts/${appId}/public/data/jobs`).doc(jobId);
 
   try {
-    const jobSnap = await getDoc(jobDocRef);
-    if (jobSnap.exists()) {
+    const jobSnap = await jobDocRef.get();
+    if (jobSnap.exists) {
       return { id: jobSnap.id, ...jobSnap.data() };
     }
   } catch (e) {
-    console.error("Error fetching job from Firestore (server-side context):", e);
+    console.error("Error fetching job from Firestore (admin):", e);
   }
-  return null; // Return null if not found in Firestore
+  return null;
 }
 
-// Function to generate dynamic metadata for each job page (runs on the server)
+// ✅ Dynamic metadata for each job page (SSR)
 export async function generateMetadata({ params }) {
   const job = await getJobByIdFromFirestore(params.jobId);
 
@@ -67,7 +56,9 @@ export async function generateMetadata({ params }) {
       "name": job.organization?.conductedBy || "Job Vacancy Hub",
       "value": job.id
     },
-    "datePosted": job.postedDate?.toDate ? job.postedDate.toDate().toISOString().split('T')[0] : (job.postedDate ? new Date(job.postedDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]),
+    "datePosted": job.postedDate?.toDate
+      ? job.postedDate.toDate().toISOString().split('T')[0]
+      : (job.postedDate ? new Date(job.postedDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]),
     "validThrough": job.deadline ? new Date(job.deadline).toISOString().split('T')[0] : undefined,
     "employmentType": job.employmentType || "FULL_TIME",
     "hiringOrganization": {
@@ -127,13 +118,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
-// Main Page Component for displaying job details (Server Component)
+// ✅ Server-rendered Job Detail Page
 export default function JobDetailPage({ params }) {
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
       <main className="container mx-auto px-4 py-8">
-        {/* Render the Client Component and pass the params */}
         <JobDetailClient params={params} />
       </main>
     </div>
