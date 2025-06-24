@@ -220,6 +220,8 @@ const App = () => {
     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
     const payload = { contents: chatHistory };
+    // It's recommended to use environment variables for API keys in Next.js:
+    // const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     const apiKey = ""; // Canvas will provide this at runtime
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -323,6 +325,8 @@ const App = () => {
             }
         }
     };
+    // It's recommended to use environment variables for API keys in Next.js:
+    // const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     const apiKey = ""; // Canvas will provide this at runtime
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -927,7 +931,7 @@ const App = () => {
             <Link href="#" className="p-3 bg-white text-green-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join WhatsApp">
               <Image
   src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-  alt="WhatsApp"
+  alt="WhatsApp logo"
   width={28}
   height={28}
   className="h-7 w-7"
@@ -936,7 +940,7 @@ const App = () => {
             <Link href="#" className="p-3 bg-white text-blue-700 rounded-full shadow-lg hover:scale-110 transition-transform duration-200" title="Join Facebook Group">
               <Image
   src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-  alt="Facebook"
+  alt="Facebook logo"
   width={28}
   height={28}
   className="h-7 w-7"
@@ -1019,4 +1023,3 @@ const App = () => {
   };
   
   export default App;
-  
