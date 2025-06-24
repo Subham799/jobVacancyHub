@@ -1,6 +1,7 @@
 // src/app/layout.js
 // Correct path for globals.css now that it's in src/app/
 import './globals.css';
+import Script from 'next/script';
 
 export const metadata = {
   // SEO Meta Tags
