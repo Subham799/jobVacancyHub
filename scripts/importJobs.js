@@ -179,7 +179,8 @@ const jobsToImport = [
 ];
 
 // Define the base path for your jobs collection
-const appId = 'default-app-id'; // This should match the __app_id used in your app.js
+const appId = 'jobvacancy-60d3a'; // ✅ Correct Firestore path
+ // This should match the __app_id used in your app.js
 const collectionPath = `artifacts/${appId}/public/data/jobs`;
 
 async function importJobs() {

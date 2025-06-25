@@ -1,8 +1,20 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // Public access to individual job documents
     match /artifacts/{appId}/public/data/jobs/{jobId} {
-      allow read: if true;  // 🔓 Public read access
+      allow read: if true;
+    }
+
+    // Public access to full jobs collection (for list pages)
+    match /artifacts/{appId}/public/data/jobs {
+      allow read: if true;
+    }
+
+    // Optional: allow reading categories or featured
+    match /artifacts/{appId}/public/data/{doc=**} {
+      allow read: if true;
     }
   }
 }
