@@ -25,7 +25,7 @@ import { onAuthStateChanged } from 'firebase/auth'; // Firebase Auth module (ext
 // This function now handles both Firestore fetch and localStorage fallback
 async function getJobByIdFromFirestoreClient(jobId) {
   // First, try to get from Firestore
-  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  const appId = typeof __app_id !== 'undefined' ? __app_id : 'jobvacancy-60d3a';
   const jobDocRef = doc(db, `artifacts/${appId}/public/data/jobs`, jobId);
 
   try {

@@ -7,7 +7,7 @@ import JobDetailClient from './JobDetailClient'; // ✅ Client Component
 
 // ✅ Server-side Firestore fetch using Admin SDK
 async function getJobByIdFromFirestore(jobId) {
-  const appId = process.env.NEXT_PUBLIC_APP_ID || 'default-app-id';
+  const appId = process.env.NEXT_PUBLIC_APP_ID || 'jobvacancy-60d3a';
   const jobDocRef = dbAdmin.collection(`artifacts/${appId}/public/data/jobs`).doc(jobId);
 
   try {

@@ -45,7 +45,7 @@ const GovernmentJobsPage = () => {
   useEffect(() => {
     if (!isAuthReady) return; // Wait until auth state is confirmed
 
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'jobvacancy-60d3a';
     const jobsCollectionRef = collection(db, `artifacts/${appId}/public/data/jobs`);
 
     // Fetch Government Jobs
