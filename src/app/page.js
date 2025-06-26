@@ -92,6 +92,8 @@ const App = () => {
 
   // Firestore related states
   const [latestGovtJobs, setLatestGovtJobs] = useState([]);
+  let [latestPrivateJobs, setLatestPrivateJobs] = useState([]);
+
   const [jobsNearingDeadlineFromFirestore, setJobsNearingDeadlineFromFirestore] = useState([]);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -100,17 +102,15 @@ const App = () => {
   // For adding a new job (demo purposes)
   const [newJobTitle, setNewJobTitle] = useState('');
   const [newJobDeadline, setNewJobDeadline] = useState('');
-  const [newJobCategory, setNewJobCategory] = useState('');
+  const [newJobSector, setNewJobSector] = useState('');
+const [newJobSubcategory, setNewJobSubcategory] = useState('');
+
   const [newJobDescription, setNewJobDescription] = useState('');
   const [newJobApplyLink, setNewJobApplyLink] = useState('');
 
   // Sample notifications (static for now)
-  const notifications = [
-    { id: 1, type: 'admit_card', title: 'Admit Card for IBPS PO Prelims Out!', link: '#' },
-    { id: 2, type: 'exam_date', title: 'SSC CGL Tier 2 Exam Dates Announced', link: '#' },
-    { id: 3, type: 'result', title: 'UPSC Civil Services Mains Result Declared', link: '#' },
-    { id: 4, type: 'deadline', title: 'Last day to apply for SBI Clerk!', link: '#' },
-  ];
+const [notifications, setNotifications] = useState([]);
+
 
 
   // Initialize Firebase and listen for auth state changes
@@ -127,65 +127,57 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch jobs from Firestore
   useEffect(() => {
-    if (!isAuthReady) return; // Wait until auth state is confirmed
+  if (!isAuthReady) return;
 
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const jobsCollectionRef = collection(db, `artifacts/${appId}/public/data/jobs`);
+  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  const jobsCollectionRef = collection(db, `artifacts/${appId}/public/data/jobs`);
+  const notificationsRef = collection(db, `artifacts/${appId}/public/data/notifications`);
 
-    // Fetch Latest Government Jobs
-    const qLatestGovt = query(jobsCollectionRef, where('category', '==', 'govt'));
-    const unsubscribeLatestGovt = onSnapshot(qLatestGovt, (snapshot) => {
-      const jobsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const activeJobs = jobsData.filter(job => !isJobExpired(job.deadline));
-      setLatestGovtJobs(activeJobs);
-    }, (error) => {
-      console.error("Error fetching latest government jobs:", error);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const thirtyDaysFromNow = new Date(today);
+  thirtyDaysFromNow.setDate(today.getDate() + 30);
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setDate(today.getDate() - 7);
+
+  const unsubscribeJobs = onSnapshot(jobsCollectionRef, (snapshot) => {
+    const jobs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    // Trending Jobs: Posted in last 7 days
+    const trending = jobs.filter(job => {
+      const postDate = job.postedDate?.toDate?.() || new Date(job.postedDate);
+      return postDate >= sevenDaysAgo && postDate <= today;
     });
 
-    // Fetch Jobs Nearing Deadline (e.g., within next 30 days)
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    const thirtyDaysFromNow = new Date();
-    thirtyDaysFromNow.setDate(today.getDate() + 30);
-
-    // Note: Firestore queries for date ranges are complex with '!=' or ranges if not indexed.
-    // For simplicity, we'll fetch all and filter client-side for "nearing deadline" if direct range query isn't simple.
-    // A more robust solution might involve a `deadlineTimestamp` field and `orderBy('deadlineTimestamp')`
-    const qNearingDeadline = query(jobsCollectionRef); // Fetch all and filter client-side for demo
-    const unsubscribeNearingDeadline = onSnapshot(qNearingDeadline, (snapshot) => {
-        const jobsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const nearingDeadline = jobsData.filter(job => {
-            if (!job.deadline) return false;
-            try {
-                const jobDeadline = new Date(job.deadline);
-                jobDeadline.setHours(23,59,59,999); // Set to end of day for comparison
-                return jobDeadline >= today && jobDeadline <= thirtyDaysFromNow;
-            } catch (e) {
-                return false;
-            }
-        });
-        setJobsNearingDeadlineFromFirestore(nearingDeadline);
-    }, (error) => {
-        console.error("Error fetching jobs nearing deadline:", error);
+    // Nearing Deadline: Deadline within next 30 days
+    const nearing = jobs.filter(job => {
+      const deadline = job.deadline ? new Date(job.deadline) : null;
+      return deadline && deadline >= today && deadline <= thirtyDaysFromNow;
     });
 
+    setTrendingJobs(trending);
+    setJobsNearingDeadlineFromFirestore(nearing);
+  });
 
-    return () => {
-      unsubscribeLatestGovt();
-      unsubscribeNearingDeadline();
-    };
-  }, [isAuthReady]); // Re-run when auth state is ready
+  const unsubscribeNotifications = onSnapshot(notificationsRef, (snapshot) => {
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setNotifications(data);
+  });
+
+  return () => {
+    unsubscribeJobs();
+    unsubscribeNotifications();
+  };
+}, [isAuthReady]);
 
 
-  const trendingJobs = [ // These are still static for now
-    { id: 1, title: 'Full Stack Developer', company: 'Innovate Solutions', location: 'Remote' },
-    { id: 2, title: 'Digital Marketing Specialist', company: 'BrandGenius', location: 'Mumbai' },
-    { id: 3, title: 'Government Teacher', company: 'Ministry of Education', location: 'Delhi' },
-  ];
+  
 
-  const latestPrivateJobs = [ // These are still static for now
+
+ const [trendingJobs, setTrendingJobs] = useState([]);
+
+    latestPrivateJobs = [ // These are still static for now
     { id: 1, title: 'Product Manager', company: 'Global Tech', location: 'Pune' },
     { id: 2, title: 'Sales Executive', company: 'GrowMore Pvt Ltd', location: 'Chennai' },
     { id: 3, title: 'HR Manager', company: 'Corp HR', location: 'Gurugram' },
@@ -386,7 +378,8 @@ const App = () => {
       await addDoc(jobsCollectionRef, {
         title: newJobTitle,
         deadline: newJobDeadline,
-        category: newJobCategory,
+        sector: newJobSector,
+        subcategory: newJobSubcategory,
         description: newJobDescription,
         applyLink: newJobApplyLink,
         postedDate: serverTimestamp(), // Firestore timestamp
@@ -833,39 +826,55 @@ const App = () => {
           {isAuthReady && !userId && <p className="text-center text-red-500 mb-4">Authentication failed. Cannot add jobs.</p>}
           {isAuthReady && userId && (
             <form onSubmit={handleAddJob} className="space-y-4">
-              <div>
-                <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">Job Title</label>
-                <input
-                  type="text"
-                  id="jobTitle"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-                  value={newJobTitle}
-                  onChange={(e) => setNewJobTitle(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="jobDeadline" className="block text-sm font-medium text-gray-700">Deadline (YYYY-MM-DD)</label>
-                <input
-                  type="date"
-                  id="jobDeadline"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-                  value={newJobDeadline}
-                  onChange={(e) => setNewJobDeadline(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="jobCategory" className="block text-sm font-medium text-gray-700">Category (e.g., govt, private)</label>
-                <input
-                  type="text"
-                  id="jobCategory"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-                  value={newJobCategory}
-                  onChange={(e) => setNewJobCategory(e.target.value)}
-                  required
-                />
-              </div>
+                <div>
+                          <label htmlFor="jobSector" className="block text-sm font-medium text-gray-700">Sector (govt/private)</label>
+                          <input
+                            type="text"
+                            id="jobSector"
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                            value={newJobSector}
+                            onChange={(e) => setNewJobSector(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="jobSubcategory" className="block text-sm font-medium text-gray-700 mt-4">Subcategory (e.g., banking, IT, teaching)</label>
+                          <input
+                            type="text"
+                            id="jobSubcategory"
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                            value={newJobSubcategory}
+                            onChange={(e) => setNewJobSubcategory(e.target.value)}
+                            required
+                          />
+                        </div>
+
+
+                        <div>
+              <label htmlFor="jobSector" className="block text-sm font-medium text-gray-700">Sector (govt/private)</label>
+              <input
+                type="text"
+                id="jobSector"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                value={newJobSector}
+                onChange={(e) => setNewJobSector(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="jobSubcategory" className="block text-sm font-medium text-gray-700 mt-4">Subcategory (e.g., banking, IT, teaching)</label>
+              <input
+                type="text"
+                id="jobSubcategory"
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                value={newJobSubcategory}
+                onChange={(e) => setNewJobSubcategory(e.target.value)}
+                required
+              />
+            </div>
+
               <div>
                 <label htmlFor="jobDescription" className="block text-sm font-medium text-gray-700">Description</label>
                 <textarea

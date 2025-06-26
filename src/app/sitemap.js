@@ -11,7 +11,7 @@ export default async function sitemap() {
   // Check if dbAdmin was initialized correctly
   if (dbAdmin) {
     try {
-      const appId = process.env.NEXT_PUBLIC_APP_ID || 'default-app-id';
+      const appId = process.env.NEXT_PUBLIC_APP_ID || 'jobvacancy-60d3a';
       const jobsCollectionRef = dbAdmin.collection(`artifacts/${appId}/public/data/jobs`);
       const snapshot = await jobsCollectionRef.get();
 
